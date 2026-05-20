@@ -1,0 +1,32 @@
+# Builds
+build/
+bin/
+dist/
+
+# Executáveis
+*.exe
+*.dll
+*.o
+*.obj
+
+# Visual Studio / VSCode
+.vscode/
+.vs/
+*.sln
+*.vcxproj*
+*.user
+
+# Logs
+*.log
+
+# Dependências grandes
+SDL3-3.4.8/
+
+# MinGW
+*.a
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
