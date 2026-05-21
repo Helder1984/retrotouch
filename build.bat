@@ -5,6 +5,7 @@ if not exist build mkdir build
 g++ ^
 src/main.cpp ^
 src/engine/app.cpp ^
+src/render/renderer.cpp ^
 -ISDL3-3.4.8/x86_64-w64-mingw32/include ^
 -LSDL3-3.4.8/x86_64-w64-mingw32/lib ^
 -lSDL3 ^

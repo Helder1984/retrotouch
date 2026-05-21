@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../render/renderer.h"
+
 class App
 {
 public:
@@ -9,4 +11,5 @@ public:
 
 private:
     bool running = true;
+    Renderer renderer;
 };

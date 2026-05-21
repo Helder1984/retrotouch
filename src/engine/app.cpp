@@ -1,5 +1,4 @@
 #include "app.h"
-
 #include <SDL3/SDL.h>
 
 SDL_Window* window = nullptr;
@@ -23,6 +22,11 @@ bool App::init()
         return false;
     }
 
+    if (!renderer.init(window))
+    {
+        return false;
+    }
+
     return true;
 }
 
@@ -40,12 +44,21 @@ void App::run()
             }
         }
 
+        renderer.clear();
+
+        renderer.present();
+
         SDL_Delay(16);
     }
+
+    shutdown();
 }
 
 void App::shutdown()
 {
+    renderer.shutdown();
+
     SDL_DestroyWindow(window);
+
     SDL_Quit();
 }
