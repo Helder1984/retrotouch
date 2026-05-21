@@ -34,21 +34,15 @@ void App::run()
 {
     while (running)
     {
-        SDL_Event event;
+        input.update();
 
-        while (SDL_PollEvent(&event))
+        if (input.quitRequested())
         {
-            if (event.type == SDL_EVENT_QUIT)
-            {
-                running = false;
-            }
+            running = false;
         }
 
         renderer.clear();
-
         renderer.present();
-
-        SDL_Delay(16);
     }
 
     shutdown();
