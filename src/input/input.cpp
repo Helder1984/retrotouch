@@ -1,27 +1,20 @@
 #include "input.h"
+#include <SDL3/SDL.h>
+
+Input::Input()
+{
+    up = false;
+    down = false;
+    left = false;
+    right = false;
+}
 
 void Input::update()
 {
-    SDL_Event event;
+    const bool* keyboard = SDL_GetKeyboardState(NULL);
 
-    while (SDL_PollEvent(&event))
-    {
-        if (event.type == SDL_EVENT_QUIT)
-        {
-            quit = true;
-        }
-
-        if (event.type == SDL_EVENT_KEY_DOWN)
-        {
-            if (event.key.key == SDLK_ESCAPE)
-            {
-                quit = true;
-            }
-        }
-    }
-}
-
-bool Input::quitRequested() const
-{
-    return quit;
+    up = keyboard[SDL_SCANCODE_W];
+    down = keyboard[SDL_SCANCODE_S];
+    left = keyboard[SDL_SCANCODE_A];
+    right = keyboard[SDL_SCANCODE_D];
 }

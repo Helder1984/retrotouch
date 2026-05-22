@@ -1,14 +1,14 @@
 #pragma once
 
-#include <SDL3/SDL.h>
-
 class Input
 {
 public:
+    bool up;
+    bool down;
+    bool left;
+    bool right;
+
+    Input();
+
     void update();
-
-    bool quitRequested() const;
-
-private:
-    bool quit = false;
 };

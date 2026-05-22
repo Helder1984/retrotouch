@@ -27,25 +27,49 @@ bool App::init()
         return false;
     }
 
+    lastTime = SDL_GetTicks();
+
+    running = true;
+
     return true;
 }
 
 void App::run()
 {
+    SDL_Event event;
+
     while (running)
     {
-        input.update();
+        Uint64 currentTime = SDL_GetTicks();
 
-        if (input.quitRequested())
+        deltaTime = (currentTime - lastTime) / 1000.0f;
+
+        lastTime = currentTime;
+
+        while (SDL_PollEvent(&event))
         {
-            running = false;
+            if (event.type == SDL_EVENT_QUIT)
+            {
+                running = false;
+            }
         }
 
+        input.update();
+
+        player.update(
+            deltaTime,
+            input.up,
+            input.down,
+            input.left,
+            input.right
+        );
+
         renderer.clear();
+
+        renderer.drawRect(player.x, player.y, 50, 50);
+
         renderer.present();
     }
-
-    shutdown();
 }
 
 void App::shutdown()
