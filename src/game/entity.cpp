@@ -1,24 +1,242 @@
 #include "entity.h"
 
+//
+// ======================================================
+// Entity::Entity()
+// ======================================================
+// Construtor da entidade.
+//
+// Define os valores padrões:
+//
+// - posição
+// - velocidade
+// - tamanho
+// - cor
+//
 Entity::Entity()
 {
+
+    //
+    // Posição inicial da entidade.
+    //
     x = 100.0f;
     y = 100.0f;
 
-    speed = 200.0f;
+    //
+    // Velocidade de movimentação.
+    //
+    speed = 300.0f;
+
+    //
+    // Tamanho da entidade.
+    //
+    width = 50;
+    height = 50;
+
+    //
+    // Cor padrão da entidade.
+    // RGB:
+    // 255,255,255 = branco
+    //
+    r = 255;
+    g = 255;
+    b = 255;
+
+     //
+    // ==================================================
+    // Metadados padrão
+    // ==================================================
+    //
+    // ID temporário.
+    // Futuramente será automático.
+    //
+    id = 0;
+
+    //
+    // Tipo padrão.
+    //
+    type = EntityType::OBJECT;
+
+    //
+    // Entidade começa ativa.
+    //
+    active = true;
 }
 
-void Entity::update(float deltaTime, bool up, bool down, bool left, bool right)
+//
+// ======================================================
+// Entity::update()
+// ======================================================
+//
+// Atualiza lógica interna da entidade.
+//
+// Atualmente vazia.
+//
+// Futuramente poderá conter:
+//
+// - animação
+// - física
+// - timers
+// - estados
+// - comportamento próprio
+//
+void Entity::update(float deltaTime)
 {
-    if (up)
-        y -= speed * deltaTime;
-
-    if (down)
-        y += speed * deltaTime;
-
-    if (left)
-        x -= speed * deltaTime;
-
-    if (right)
-        x += speed * deltaTime;
 }
+
+//
+// ======================================================
+// Entity::getX()
+// ======================================================
+// Retorna posição X da entidade.
+//
+float Entity::getX()
+{
+    return x;
+}
+
+//
+// ======================================================
+// Entity::getY()
+// ======================================================
+// Retorna posição Y da entidade.
+//
+float Entity::getY()
+{
+    return y;
+}
+
+//
+// ======================================================
+// Entity::draw()
+// ======================================================
+// Renderiza a entidade na tela.
+//
+// Utiliza o Renderer da engine.
+//
+void Entity::draw(Renderer& renderer)
+{
+    renderer.drawRect(
+        x,
+        y,
+        width,
+        height,
+        r,
+        g,
+        b
+    );
+}
+
+//
+// ======================================================
+// Entity::setPosition()
+// ======================================================
+// Define nova posição da entidade.
+//
+void Entity::setPosition(float newX, float newY)
+{
+    x = newX;
+    y = newY;
+}
+
+//
+// ======================================================
+// Entity::setColor()
+// ======================================================
+// Define nova cor da entidade.
+//
+// RGB:
+// r = vermelho
+// g = verde
+// b = azul
+//
+void Entity::setColor(
+    Uint8 newR,
+    Uint8 newG,
+    Uint8 newB
+)
+{
+    r = newR;
+    g = newG;
+    b = newB;
+}
+
+//
+// ======================================================
+// Entity::move()
+// ======================================================
+//
+// Move a entidade aplicando deslocamento.
+//
+// dx
+// → deslocamento horizontal
+//
+// dy
+// → deslocamento vertical
+//
+void Entity::move(float dx, float dy)
+{
+    x += dx;
+    y += dy;
+}
+
+//
+// ======================================================
+// Entity::getId()
+// ======================================================
+//
+// Retorna ID da entidade.
+//
+int Entity::getId()
+{
+    return id;
+}
+
+//
+// ======================================================
+// Entity::getType()
+// ======================================================
+//
+// Retorna tipo da entidade.
+//
+EntityType Entity::getType()
+{
+    return type;
+}
+
+//
+// ======================================================
+// Entity::isActive()
+// ======================================================
+//
+// Verifica se entidade está ativa.
+//
+bool Entity::isActive()
+{
+    return active;
+}
+
+//
+// ======================================================
+// Entity::setType()
+// ======================================================
+//
+// Define tipo da entidade.
+//
+void Entity::setType(EntityType newType)
+{
+    type = newType;
+}
+
+//
+// ======================================================
+// Entity::setActive()
+// ======================================================
+//
+// Ativa/desativa entidade.
+//
+void Entity::setActive(bool state)
+{
+    active = state;
+}
+
