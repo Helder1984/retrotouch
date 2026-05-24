@@ -82,6 +82,38 @@ Entity::Entity()
 //
 void Entity::update(float deltaTime)
 {
+    //
+    // ==================================================
+    // World bounds
+    // ==================================================
+    //
+    // Impede entidade de sair do mundo.
+    //
+    if (x < 0)
+    {
+        x = 0;
+    }
+
+    if (y < 0)
+    {
+        y = 0;
+    }
+
+    //
+    // Limite horizontal.
+    //
+    if (x > 2000 - width)
+    {
+        x = 2000 - width;
+    }
+
+    //
+    // Limite vertical.
+    //
+    if (y > 2000 - height)
+    {
+        y = 2000 - height;
+    }
 }
 
 //
@@ -110,12 +142,18 @@ float Entity::getY()
 // ======================================================
 // Entity::draw()
 // ======================================================
-// Renderiza a entidade na tela.
 //
-// Utiliza o Renderer da engine.
+// Desenha entidade no mundo.
 //
-void Entity::draw(Renderer& renderer)
-{
+void Entity::draw(Renderer& renderer, Camera& camera)
+    {
+    //
+    // ==================================================
+    // Desenha entidade usando world position
+    // ==================================================
+    //
+    // Renderer aplicará offset da câmera.
+    //
     renderer.drawRect(
         x,
         y,
@@ -123,7 +161,8 @@ void Entity::draw(Renderer& renderer)
         height,
         r,
         g,
-        b
+        b,
+        camera
     );
 }
 
@@ -150,11 +189,7 @@ void Entity::setPosition(float newX, float newY)
 // g = verde
 // b = azul
 //
-void Entity::setColor(
-    Uint8 newR,
-    Uint8 newG,
-    Uint8 newB
-)
+void Entity::setColor(Uint8 newR, Uint8 newG, Uint8 newB)
 {
     r = newR;
     g = newG;

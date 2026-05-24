@@ -90,27 +90,23 @@ void Renderer::shutdown()
 // Renderer::drawRect()
 // ======================================================
 //
-// Desenha um retângulo preenchido.
+// Desenha retângulo no mundo.
 //
-// Parâmetros:
+// A câmera converte:
 //
-// x/y
-// → posição
-//
-// w/h
-// → largura e altura
-//
-// r/g/b
-// → cor RGB
+// world coordinates
+// ↓
+// screen coordinates
 //
 void Renderer::drawRect(
-    float x,
-    float y,
+    float worldX,
+    float worldY,
     int w,
     int h,
     Uint8 r,
     Uint8 g,
-    Uint8 b
+    Uint8 b,
+    Camera& camera
 )
 {
     //
@@ -119,10 +115,21 @@ void Renderer::drawRect(
     SDL_FRect rect;
 
     //
-    // Define posição do retângulo.
+    // ==================================================
+    // Conversão world → screen
+    // ==================================================
     //
-    rect.x = x;
-    rect.y = y;
+    // Remove offset da câmera.
+    //
+    // Isso cria:
+    //
+    // scrolling
+    // viewport
+    // world rendering
+    //
+    rect.x = worldX - camera.getX();
+
+    rect.y = worldY - camera.getY();
 
     //
     // Define tamanho do retângulo.

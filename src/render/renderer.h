@@ -16,6 +16,11 @@
 #include <SDL3/SDL.h>
 
 //
+// Sistema de câmera.
+//
+#include "../camera/camera.h"
+
+//
 // ======================================================
 // Classe Renderer
 // ======================================================
@@ -79,27 +84,26 @@ public:
     // drawRect()
     // ==================================================
     //
-    // Desenha um retângulo preenchido.
+    // Desenha um retângulo usando:
     //
-    // Parâmetros:
+    // - posição do mundo
+    // - offset da câmera
     //
-    // x/y
-    // → posição
+    // Isso permite:
     //
-    // w/h
-    // → largura e altura
-    //
-    // r/g/b
-    // → cor RGB
+    // world space
+    // ↓
+    // screen space
     //
     void drawRect(
-        float x,
-        float y,
+        float worldX,
+        float worldY,
         int w,
         int h,
         Uint8 r,
         Uint8 g,
-        Uint8 b
+        Uint8 b,
+        Camera& camera
     );
 
     //

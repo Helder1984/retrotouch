@@ -233,19 +233,12 @@ void App::processEvents()
 // App::update()
 // ======================================================
 //
-// Responsável por atualizar:
+// Atualiza:
 //
 // - controllers
 // - entidades
+// - câmera
 // - lógica do jogo
-//
-// Fluxo atual:
-//
-// Input
-//   ↓
-// PlayerController
-//   ↓
-// Entity
 //
 void App::update(float deltaTime)
 {
@@ -254,20 +247,34 @@ void App::update(float deltaTime)
     // Atualiza controller do player
     // ==================================================
     //
-    // O PlayerController:
-    //
-    // - lê input
-    // - interpreta comandos
-    // - move a entidade
-    //
     // entities[0]
-    // → player
+    // → player principal
     //
     playerController.update(
         entities[0],
         input,
         deltaTime
     );
+
+    //
+    // ==================================================
+    // Atualiza entidade do player
+    // ==================================================
+    //
+    entities[0].update(deltaTime);
+
+    //
+    // ==================================================
+    // Atualiza câmera
+    // ==================================================
+    //
+    // Faz câmera seguir player.
+    //
+    camera.follow(
+        entities[0].getX(),
+        entities[0].getY()
+    );
+
 
     //
     // ==================================================
@@ -312,7 +319,13 @@ for (auto& entity : entities)
 {
     if (entity.isActive())
     {
-        entity.draw(renderer);
+        //
+        // Renderiza entidade usando câmera.
+        //
+        entity.draw(
+            renderer,
+            camera
+);
     }
 }
 

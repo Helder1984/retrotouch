@@ -41,6 +41,11 @@
 #include "../controllers/player_controller.h"
 
 //
+// Sistema de câmera.
+//
+#include "../camera/camera.h"
+
+//
 // ======================================================
 // Classe principal da aplicação
 // ======================================================
@@ -92,12 +97,7 @@ public:
     // Atualmente o renderer já possui drawRect().
     // Esse método provavelmente será removido futuramente.
     //
-    void drawRect(
-        float x,
-        float y,
-        int w,
-        int h
-    );
+    void drawRect(float x, float y, int w, int h);
 
 private:
 
@@ -155,6 +155,19 @@ private:
     // Entity
     //
     PlayerController playerController;
+
+    //
+    // ==================================================
+    // Sistema de câmera
+    // ==================================================
+    //
+    // Responsável por:
+    //
+    // - viewport
+    // - scrolling
+    // - world visualization
+    //
+    Camera camera;
 
     //
     // Delta time do frame atual.

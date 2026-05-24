@@ -97,9 +97,12 @@ public:
     // draw()
     // ==================================================
     //
-    // Renderiza a entidade usando o Renderer.
+    // Desenha entidade usando:
     //
-    void draw(Renderer& renderer);
+    // - renderer
+    // - câmera
+    //
+    void draw(Renderer& renderer, Camera& camera);
 
     //
     // ==================================================
@@ -108,10 +111,7 @@ public:
     //
     // Define nova posição da entidade.
     //
-    void setPosition(
-        float newX,
-        float newY
-    );
+    void setPosition(float newX, float newY);
 
     //
     // ==================================================
@@ -125,11 +125,7 @@ public:
     // g = verde
     // b = azul
     //
-    void setColor(
-        Uint8 newR,
-        Uint8 newG,
-        Uint8 newB
-    );
+    void setColor(Uint8 newR, Uint8 newG, Uint8 newB);
 
     //
     // ==================================================
