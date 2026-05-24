@@ -25,6 +25,10 @@ Controllers
    ↓
 Entities
    ↓
+Camera
+   ↓
+Viewport
+   ↓
 Renderer
 ```
 
