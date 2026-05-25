@@ -13,6 +13,7 @@
 //
 #include "../input/input.h"
 #include "../game/entity.h"
+#include "../virtual_input/virtual_input.h"
 
 //
 // ======================================================
@@ -57,11 +58,11 @@ public:
     // player
     // → entidade controlada
     //
-    // input
-    // → estado atual do teclado
+    // virtualInput
+    // Atualiza player.
     //
     // deltaTime
     // → tempo entre frames
     //
-    void update(Entity& player, Input& input, float deltaTime);
+    void update(Entity& player, VirtualInput& virtualInput, float deltaTime);
 };

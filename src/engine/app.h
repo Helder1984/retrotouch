@@ -7,12 +7,6 @@
 //
 
 //
-// std::vector
-// Usado para armazenar múltiplas entidades.
-//
-#include <vector>
-
-//
 // Renderer da engine.
 // Responsável pela renderização.
 //
@@ -25,25 +19,20 @@
 #include "../input/input.h"
 
 //
-// Classe Entity.
-// Representa objetos do jogo.
+// Sistema de scenes.
 //
-#include "../game/entity.h"
+#include "../scenes/scene.h"
+
+//
+// Scene principal.
+//
+#include "../scenes/game_scene.h"
 
 //
 // Biblioteca principal SDL.
 //
 #include <SDL3/SDL.h>
 
-//
-// Controller responsável pelo jogador.
-//
-#include "../controllers/player_controller.h"
-
-//
-// Sistema de câmera.
-//
-#include "../camera/camera.h"
 
 //
 // ======================================================
@@ -134,42 +123,6 @@ private:
     Input input;
 
     //
-    // ==================================================
-    // Sistema de tempo
-    // ==================================================
-    //
-
-    //
-    // ======================================================
-    // Controllers
-    // ======================================================
-    //
-    // Responsável por controlar o player.
-    //
-    // Arquitetura:
-    //
-    // Input
-    //   ↓
-    // PlayerController
-    //   ↓
-    // Entity
-    //
-    PlayerController playerController;
-
-    //
-    // ==================================================
-    // Sistema de câmera
-    // ==================================================
-    //
-    // Responsável por:
-    //
-    // - viewport
-    // - scrolling
-    // - world visualization
-    //
-    Camera camera;
-
-    //
     // Delta time do frame atual.
     //
     float deltaTime;
@@ -178,19 +131,6 @@ private:
     // Último tempo registrado.
     //
     Uint64 lastTime;
-
-    //
-    // ==================================================
-    // Lista de entidades
-    // ==================================================
-    //
-    // Armazena:
-    // - player
-    // - NPCs
-    // - objetos
-    // - futuras entidades do jogo
-    //
-    std::vector<Entity> entities;
 
     //
     // ==================================================
@@ -212,4 +152,22 @@ private:
     // Renderiza frame atual.
     //
     void render();
+
+    //
+    // ==================================================
+    // Scene atual
+    // ==================================================
+    //
+    // Scene ativa da engine.
+    //
+    Scene* currentScene = nullptr;
+
+    //
+    // ==================================================
+    // GameScene principal
+    // ==================================================
+    //
+    // Gameplay principal.
+    //
+    GameScene gameScene;
 };

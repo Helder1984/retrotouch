@@ -10,6 +10,9 @@ src/input/input.cpp ^
 src/game/entity.cpp ^
 src/controllers/*.cpp ^
 src/camera/*.cpp ^
+src/scenes/*.cpp ^
+src/ui/*.cpp ^
+src/virtual_input/*.cpp ^
 -ISDL3-3.4.8/x86_64-w64-mingw32/include ^
 -LSDL3-3.4.8/x86_64-w64-mingw32/lib ^
 -lSDL3 ^

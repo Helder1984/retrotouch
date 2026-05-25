@@ -59,51 +59,27 @@ bool App::init()
 
     //
     // ==================================================
-    // Criação do Player
+    // Configura gameplay principal
     // ==================================================
     //
-    // Cria a entidade do jogador.
-    // O player usa valores padrão definidos na Entity.
+    // Injeta:
     //
-    Entity player;
+    // - renderer
+    // - input
     //
-    // Define tipo do player.
-    //
-    player.setType(EntityType::PLAYER);
+    gameScene.setRenderer(&renderer);
+
+    gameScene.setInput(&input);
 
     //
-    // Adiciona o player ao vetor de entidades.
+    // Scene atual.
     //
-    entities.push_back(player);
+    currentScene = &gameScene;
 
     //
-    // ==================================================
-    // Criação do NPC
-    // ==================================================
+    // Inicializa scene.
     //
-    Entity npc;
-
-    //
-    // Define tipo do player.
-    //
-    npc.setType(EntityType::NPC);
-
-    //
-    // Define posição do NPC na tela.
-    //
-    npc.setPosition(400, 200);
-
-    //
-    // Define a cor do NPC.
-    // RGB:
-    // 255,0,0 = vermelho
-    //
-    npc.setColor(255, 0, 0);
-
-    //
-    // Adiciona NPC ao vetor de entidades.
-    //
-    entities.push_back(npc);
+    currentScene->init();
 
     //
     // Inicializa o sistema de tempo.
@@ -174,17 +150,27 @@ void App::run()
 // ======================================================
 // App::shutdown()
 // ======================================================
-// Finaliza corretamente todos os sistemas.
+//
+// Finaliza:
+//
+// - scene
+// - renderer
+// - SDL
 //
 void App::shutdown()
 {
+    //
+    // Finaliza scene atual.
+    //
+    currentScene->shutdown();
+
     //
     // Finaliza renderer.
     //
     renderer.shutdown();
 
     //
-    // Destrói janela SDL.
+    // Destrói janela.
     //
     SDL_DestroyWindow(window);
 
@@ -233,104 +219,41 @@ void App::processEvents()
 // App::update()
 // ======================================================
 //
-// Atualiza:
-//
-// - controllers
-// - entidades
-// - câmera
-// - lógica do jogo
+// Atualiza scene atual.
 //
 void App::update(float deltaTime)
 {
     //
-    // ==================================================
-    // Atualiza controller do player
-    // ==================================================
+    // Atualiza scene ativa.
     //
-    // entities[0]
-    // → player principal
-    //
-    playerController.update(
-        entities[0],
-        input,
-        deltaTime
-    );
-
-    //
-    // ==================================================
-    // Atualiza entidade do player
-    // ==================================================
-    //
-    entities[0].update(deltaTime);
-
-    //
-    // ==================================================
-    // Atualiza câmera
-    // ==================================================
-    //
-    // Faz câmera seguir player.
-    //
-    camera.follow(
-        entities[0].getX(),
-        entities[0].getY()
-    );
-
-
-    //
-    // ==================================================
-    // Atualiza lógica interna da entidade
-    // ==================================================
-    //
-    // Aqui futuramente entrarão:
-    //
-    // - animações
-    // - física
-    // - timers
-    // - estados
-    // - IA
-    //
-    entities[0].update(deltaTime);
+    currentScene->update(deltaTime);
 }
 
 //
 // ======================================================
 // App::render()
 // ======================================================
-// Responsável pela renderização do frame.
+//
+// Renderiza:
+//
+// - limpa tela
+// - scene atual
+// - apresenta frame
 //
 void App::render()
 {
     //
-    // Limpa tela.
+    // Limpa frame atual.
     //
     renderer.clear();
 
-//
-// ==================================================
-// Renderiza entidades ativas
-// ==================================================
-//
-// Apenas entidades ativas:
-//
-// - atualizam
-// - renderizam
-//
-for (auto& entity : entities)
-{
-    if (entity.isActive())
-    {
-        //
-        // Renderiza entidade usando câmera.
-        //
-        entity.draw(
-            renderer,
-            camera
-);
-    }
-}
+    //
+    // Renderiza scene ativa.
+    //
+    currentScene->render();
 
     //
-    // Apresenta frame final na tela.
+    // Apresenta frame.
     //
     renderer.present();
 }

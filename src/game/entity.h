@@ -240,6 +240,31 @@ public:
     // Ativa/desativa entidade.
     //
     void setActive(bool state);
+
+    //
+    // ==================================================
+    // Movimento
+    // ==================================================
+    //
+    // Move entidade para cima.
+    //
+    void moveUp(float deltaTime);
+
+    //
+    // Move entidade para baixo.
+    //
+    void moveDown(float deltaTime);
+
+    //
+    // Move entidade para esquerda.
+    //
+    void moveLeft(float deltaTime);
+
+    //
+    // Move entidade para direita.
+    //
+    void moveRight(float deltaTime);
+    
 private:
 
     //

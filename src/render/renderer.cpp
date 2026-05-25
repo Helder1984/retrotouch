@@ -107,7 +107,7 @@ void Renderer::drawRect(
     Uint8 g,
     Uint8 b,
     Camera& camera
-)
+    )
 {
     //
     // Estrutura de retângulo da SDL.
@@ -147,3 +147,63 @@ void Renderer::drawRect(
     //
     SDL_RenderFillRect(renderer, &rect);
 }
+ 
+//
+    // ======================================================
+    // Renderer::drawScreenRect()
+    // ======================================================
+    //
+    // Desenha diretamente na tela.
+    //
+    // IMPORTANTE:
+    //
+    // NÃO usa câmera.
+    //
+    // Isso é:
+    //
+    // SCREEN SPACE
+    //
+void Renderer::drawScreenRect(
+    float x,
+    float y,
+    int w,
+    int h,
+    Uint8 r,
+    Uint8 g,
+    Uint8 b
+)
+{
+    //
+    // Retângulo SDL.
+    //
+    SDL_FRect rect;
+
+    //
+    // Posição na tela.
+    //
+    rect.x = x;
+    rect.y = y;
+
+    //
+    // Tamanho.
+    //
+    rect.w = (float)w;
+    rect.h = (float)h;
+
+    //
+    // Cor do overlay.
+    //
+    SDL_SetRenderDrawColor(
+        renderer,
+        r,
+        g,
+        b,
+        255
+    );
+
+    //
+    // Renderiza na tela.
+    //
+    SDL_RenderFillRect(renderer, &rect);
+}
+    

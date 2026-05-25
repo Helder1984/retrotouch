@@ -275,3 +275,51 @@ void Entity::setActive(bool state)
     active = state;
 }
 
+//
+// ======================================================
+// Entity::moveUp()
+// ======================================================
+//
+// Move entidade para cima.
+//
+void Entity::moveUp(float deltaTime)
+{
+    y -= speed * deltaTime;
+}
+
+//
+// ======================================================
+// Entity::moveDown()
+// ======================================================
+//
+// Move entidade para baixo.
+//
+void Entity::moveDown(float deltaTime)
+{
+    y += speed * deltaTime;
+}
+
+//
+// ======================================================
+// Entity::moveLeft()
+// ======================================================
+//
+// Move entidade para esquerda.
+//
+void Entity::moveLeft(float deltaTime)
+{
+    x -= speed * deltaTime;
+}
+
+//
+// ======================================================
+// Entity::moveRight()
+// ======================================================
+//
+// Move entidade para direita.
+//
+void Entity::moveRight(float deltaTime)
+{
+    x += speed * deltaTime;
+}
+

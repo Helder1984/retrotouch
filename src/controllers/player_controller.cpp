@@ -5,80 +5,38 @@
 // PlayerController::update()
 // ======================================================
 //
-// Responsável por:
-//
-// - ler input
-// - converter input em movimento
-// - mover a entidade do jogador
-//
-// Agora o teclado NÃO pertence mais à Entity.
-//
-// Isso desacopla:
-//
-// input
-// da
-// lógica da entidade
+// Controla movimentação do player
+// usando VirtualInput.
 //
 void PlayerController::update(
-    Entity& player,
-    Input& input,
+    Entity& entity,
+    VirtualInput& virtualInput,
     float deltaTime
 )
 {
     //
-    // Velocidade de movimentação.
+    // Movimento vertical.
     //
-    float speed = 300.0f;
-
-    //
-    // ==================================================
-    // Movimento para cima
-    // ==================================================
-    //
-    if (input.up)
+    if (virtualInput.isPressed(VirtualButton::UP))
     {
-        player.move(
-            0,
-            -speed * deltaTime
-        );
+        entity.moveUp(deltaTime);
+    }
+
+    if (virtualInput.isPressed(VirtualButton::DOWN))
+    {
+        entity.moveDown(deltaTime);
     }
 
     //
-    // ==================================================
-    // Movimento para baixo
-    // ==================================================
+    // Movimento horizontal.
     //
-    if (input.down)
+    if (virtualInput.isPressed(VirtualButton::LEFT))
     {
-        player.move(
-            0,
-            speed * deltaTime
-        );
+        entity.moveLeft(deltaTime);
     }
 
-    //
-    // ==================================================
-    // Movimento para esquerda
-    // ==================================================
-    //
-    if (input.left)
+    if (virtualInput.isPressed(VirtualButton::RIGHT))
     {
-        player.move(
-            -speed * deltaTime,
-            0
-        );
-    }
-
-    //
-    // ==================================================
-    // Movimento para direita
-    // ==================================================
-    //
-    if (input.right)
-    {
-        player.move(
-            speed * deltaTime,
-            0
-        );
+        entity.moveRight(deltaTime);
     }
 }

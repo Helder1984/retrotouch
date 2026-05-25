@@ -33,6 +33,14 @@ Input::Input()
     // Movimento para direita.
     //
     right = false;
+
+    //
+    // Mouse.
+    //
+    mouseLeft = false;
+
+    mouseX = 0;
+    mouseY = 0;
 }
 
 //
@@ -78,4 +86,23 @@ void Input::update()
     // Movimento para direita.
     //
     right = keyboard[SDL_SCANCODE_D];
-}
+
+    //
+    // ==================================================
+    // Mouse state
+    // ==================================================
+    //
+    // Captura estado do mouse.
+    //
+    SDL_MouseButtonFlags mouseState =
+        SDL_GetMouseState(
+            &mouseX,
+            &mouseY
+        );
+
+    //
+    // Clique esquerdo.
+    //
+    mouseLeft =
+        mouseState & SDL_BUTTON_LMASK;
+    }

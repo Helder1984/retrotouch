@@ -108,6 +108,31 @@ public:
 
     //
     // ==================================================
+    // drawScreenRect()
+    // ==================================================
+    //
+    // Desenha diretamente na tela.
+    //
+    // NÃO usa câmera.
+    //
+    // Usado para:
+    //
+    // - UI
+    // - overlays
+    // - botões touch
+    //
+    void drawScreenRect(
+        float x,
+        float y,
+        int w,
+        int h,
+        Uint8 r,
+        Uint8 g,
+        Uint8 b
+    );
+
+    //
+    // ==================================================
     // shutdown()
     // ==================================================
     //
