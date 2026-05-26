@@ -3,6 +3,7 @@
 #include "overlay.h"
 #include "../input/input.h"
 #include "../virtual_input/virtual_input.h"
+#include "../touch/touch_manager.h"
 
 //
 // ======================================================
@@ -60,40 +61,71 @@ public:
     );
 
     //
-    // Define posição do botão.
+    // Define TouchManager.
+    //
+    void setTouchManager(
+        TouchManager* newTouchManager
+    );
+
+    //
+    // ==================================================
+    // Configuração visual
+    // ==================================================
+    //
+    // Define posição.
     //
     void setPosition(
         float newX,
         float newY
     );
 
+    //
+    // Define tamanho.
+    //
+    void setSize(
+        int newWidth,
+        int newHeight
+    );
+
+    //
+    // Define cor.
+    //
+    void setColor(
+        Uint8 newR,
+        Uint8 newG,
+        Uint8 newB
+    );
+
 private:
 
     //
     // ==================================================
-    // Posição na tela
+    // Transform
     // ==================================================
     //
-    // IMPORTANTE:
+    // Posição.
     //
-    // Coordenadas da TELA.
-    //
-    float x;
-    float y;
+    float x = 0.0f;
+
+    float y = 0.0f;
 
     //
-    // Tamanho do botão.
+    // Tamanho.
     //
-    int width;
-    int height;
+    int width = 100;
+
+    int height = 100;
 
     //
-    // Cor do botão.
+    // ==================================================
+    // Cor
+    // ==================================================
     //
-    Uint8 r;
-    Uint8 g;
-    Uint8 b;
+    Uint8 r = 255;
 
+    Uint8 g = 255;
+
+    Uint8 b = 255;
     //
     // Sistema de input.
     //
@@ -114,4 +146,10 @@ private:
     //
     VirtualButton virtualButton =
         VirtualButton::NONE;
+
+    //
+    // Sistema multitouch.
+    //
+    TouchManager* touchManager = nullptr;
+
 };

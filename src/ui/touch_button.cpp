@@ -45,89 +45,99 @@ TouchButton::TouchButton()
 // TouchButton::update()
 // ======================================================
 //
-// Detecta:
+// Atualiza:
 //
-// - hover
 // - clique
-// - toque
+// - multitouch
+// - virtual input
 //
 void TouchButton::update(float deltaTime)
 {
     //
     // Segurança.
     //
-    if (!input)
+    if (!virtualInput)
     {
         return;
     }
 
     //
     // ==================================================
-    // Mouse collision
+    // Mouse fallback
     // ==================================================
     //
-    bool insideX =
-        input->mouseX >= x &&
-        input->mouseX <= x + width;
+    // Permite testar touch
+    // no desktop.
+    //
+    float mouseX;
+    float mouseY;
 
-    bool insideY =
-        input->mouseY >= y &&
-        input->mouseY <= y + height;
+    //
+    // Obtém estado do mouse.
+    //
+    Uint32 mouseState =
+        SDL_GetMouseState(
+            &mouseX,
+            &mouseY
+        );
+
+    //
+    // Botão esquerdo pressionado.
+    //
+    bool mousePressed =
+        mouseState & SDL_BUTTON_LMASK;
 
     //
     // Mouse dentro do botão.
     //
-    bool hovering =
-        insideX &&
-        insideY;
+    bool mouseInside =
+        mouseX >= x &&
+        mouseX <= x + width &&
+        mouseY >= y &&
+        mouseY <= y + height;
 
     //
     // ==================================================
-    // Clique
+    // Touch real
     // ==================================================
     //
-    isPressed =
-        hovering &&
-        input->mouseLeft;
+    bool touchPressed = false;
 
     //
-    // ==================================================
-    // Atualiza virtual input
-    // ==================================================
+    // Verifica multitouch.
     //
-    // Envia estado do botão.
-    //
-    if (virtualInput)
+    if (touchManager)
     {
-        virtualInput->setButton(
-            virtualButton,
-            isPressed
-        );
+        touchPressed =
+            touchManager->isTouching(
+                x,
+                y,
+                width,
+                height
+            );
     }
 
     //
     // ==================================================
-    // Feedback visual
+    // Resultado final
     // ==================================================
     //
-    if (isPressed)
-    {
-        //
-        // Azul claro.
-        //
-        r = 100;
-        g = 180;
-        b = 255;
-    }
-    else
-    {
-        //
-        // Azul normal.
-        //
-        r = 0;
-        g = 120;
-        b = 255;
-    }
+    bool pressed =
+        touchPressed ||
+        (mousePressed && mouseInside);
+
+    //
+    // Atualiza estado visual.
+    //
+    isPressed = pressed;
+
+    //
+    // Atualiza VirtualInput.
+    //
+    virtualInput->setButton(
+        virtualButton,
+        pressed
+    );
 }
 
 //
@@ -135,29 +145,46 @@ void TouchButton::update(float deltaTime)
 // TouchButton::render()
 // ======================================================
 //
-// Renderiza botão na tela.
+// Renderiza botão virtual.
 //
-// IMPORTANTE:
-//
-// NÃO usa câmera.
-//
-// Isso é:
-//
-// SCREEN SPACE UI
-//
-void TouchButton::render(Renderer& renderer)
+void TouchButton::render(
+    Renderer& renderer
+)
 {
     //
-    // Desenha botão diretamente na tela.
+    // ==================================================
+    // Cor final
+    // ==================================================
+    //
+    Uint8 finalR = r;
+
+    Uint8 finalG = g;
+
+    Uint8 finalB = b;
+
+    //
+    // Feedback visual.
+    //
+    if (isPressed)
+    {
+        finalR = 255;
+
+        finalG = 255;
+
+        finalB = 255;
+    }
+
+    //
+    // Renderiza botão na tela.
     //
     renderer.drawScreenRect(
         x,
         y,
         width,
         height,
-        r,
-        g,
-        b
+        finalR,
+        finalG,
+        finalB
     );
 }
 
@@ -216,4 +243,55 @@ void TouchButton::setPosition(
     x = newX;
 
     y = newY;
+}
+
+//
+// ======================================================
+// TouchButton::setTouchManager()
+// ======================================================
+//
+// Define sistema multitouch.
+//
+void TouchButton::setTouchManager(
+    TouchManager* newTouchManager
+)
+{
+    touchManager = newTouchManager;
+}
+
+//
+// ======================================================
+// TouchButton::setColor()
+// ======================================================
+//
+// Define cor do botão.
+//
+void TouchButton::setColor(
+    Uint8 newR,
+    Uint8 newG,
+    Uint8 newB
+)
+{
+    r = newR;
+
+    g = newG;
+
+    b = newB;
+}
+
+//
+// ======================================================
+// TouchButton::setSize()
+// ======================================================
+//
+// Define tamanho do botão.
+//
+void TouchButton::setSize(
+    int newWidth,
+    int newHeight
+)
+{
+    width = newWidth;
+
+    height = newHeight;
 }

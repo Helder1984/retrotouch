@@ -31,7 +31,7 @@ VirtualInput::VirtualInput()
 // VirtualInput::setButton()
 // ======================================================
 //
-// Atualiza estado do botão virtual.
+// Atualiza estado de um botão virtual.
 //
 void VirtualInput::setButton(
     VirtualButton button,
@@ -40,6 +40,9 @@ void VirtualInput::setButton(
 {
     switch (button)
     {
+        //
+        // Movimento.
+        //
         case VirtualButton::UP:
             up = pressed;
             break;
@@ -56,6 +59,9 @@ void VirtualInput::setButton(
             right = pressed;
             break;
 
+        //
+        // Ação.
+        //
         case VirtualButton::A:
             a = pressed;
             break;
@@ -64,15 +70,15 @@ void VirtualInput::setButton(
             b = pressed;
             break;
 
+        //
+        // Sistema.
+        //
         case VirtualButton::START:
             start = pressed;
             break;
 
         case VirtualButton::SELECT:
             select = pressed;
-            break;
-
-        default:
             break;
     }
 }
@@ -82,12 +88,17 @@ void VirtualInput::setButton(
 // VirtualInput::isPressed()
 // ======================================================
 //
-// Retorna estado do botão.
+// Verifica estado de botão virtual.
 //
-bool VirtualInput::isPressed(VirtualButton button)
+bool VirtualInput::isPressed(
+    VirtualButton button
+)
 {
     switch (button)
     {
+        //
+        // Movimento.
+        //
         case VirtualButton::UP:
             return up;
 
@@ -100,19 +111,24 @@ bool VirtualInput::isPressed(VirtualButton button)
         case VirtualButton::RIGHT:
             return right;
 
+        //
+        // Ação.
+        //
         case VirtualButton::A:
             return a;
 
         case VirtualButton::B:
             return b;
 
+        //
+        // Sistema.
+        //
         case VirtualButton::START:
             return start;
 
         case VirtualButton::SELECT:
             return select;
-
-        default:
-            return false;
     }
+
+    return false;
 }

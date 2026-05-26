@@ -39,4 +39,24 @@ void PlayerController::update(
     {
         entity.moveRight(deltaTime);
     }
+
+    //
+    // ==================================================
+    // Botão A
+    // ==================================================
+    if (
+        virtualInput.isPressed(
+            VirtualButton::A
+        )
+    )
+    {
+        //
+        // Player fica verde.
+        //
+        entity.setColor(
+            0,
+            255,
+            0
+        );
+    }
 }

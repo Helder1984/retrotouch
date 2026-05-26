@@ -13,6 +13,8 @@ src/camera/*.cpp ^
 src/scenes/*.cpp ^
 src/ui/*.cpp ^
 src/virtual_input/*.cpp ^
+src/touch/*.cpp ^
+src/layout/hud_layout.cpp ^
 -ISDL3-3.4.8/x86_64-w64-mingw32/include ^
 -LSDL3-3.4.8/x86_64-w64-mingw32/lib ^
 -lSDL3 ^

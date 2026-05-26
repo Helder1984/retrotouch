@@ -28,6 +28,8 @@
 //
 #include "../scenes/game_scene.h"
 
+#include "../touch/touch_manager.h"
+
 //
 // Biblioteca principal SDL.
 //
@@ -170,4 +172,9 @@ private:
     // Gameplay principal.
     //
     GameScene gameScene;
+
+    //
+    // Sistema touch.
+    //
+    TouchManager touchManager;
 };

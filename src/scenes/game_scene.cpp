@@ -1,4 +1,5 @@
 #include "game_scene.h"
+#include <cstdio>
 
 //
 // ======================================================
@@ -9,6 +10,21 @@
 //
 void GameScene::init()
 {
+    //
+    // ==================================================
+    // Carrega HUD layout
+    // ==================================================
+    hudLayout.load(
+        "layout.cfg"
+    );
+
+    //
+    // Salva layout padrão.
+    //
+    hudLayout.save(
+        "layout.cfg"
+    );
+    
     //
     // ==================================================
     // Cria player
@@ -47,11 +63,23 @@ void GameScene::init()
         &virtualInput
     );
 
+    upButton.setTouchManager(
+        touchManager
+    );
+    
     upButton.setVirtualButton(
         VirtualButton::UP
     );
+    
+    upButton.setPosition(
+        hudLayout.dpadX + 80,
+        hudLayout.dpadY
+    );
 
-    upButton.setPosition(120, 380);
+    upButton.setSize(
+        hudLayout.dpadButtonSize,
+        hudLayout.dpadButtonSize
+    );
 
     // ---------------- DOWN ----------------
     downButton.setInput(input);
@@ -60,11 +88,23 @@ void GameScene::init()
         &virtualInput
     );
 
+    downButton.setTouchManager(
+        touchManager
+    );
+
     downButton.setVirtualButton(
         VirtualButton::DOWN
     );
 
-    downButton.setPosition(120, 500);
+    downButton.setPosition(
+        hudLayout.dpadX + 80,
+        hudLayout.dpadY + 160
+    );
+
+    downButton.setSize(
+        hudLayout.dpadButtonSize,
+        hudLayout.dpadButtonSize
+    );
 
     // ---------------- LEFT ----------------
     leftButton.setInput(input);
@@ -73,11 +113,23 @@ void GameScene::init()
         &virtualInput
     );
 
+    leftButton.setTouchManager(
+        touchManager
+    );
+
     leftButton.setVirtualButton(
         VirtualButton::LEFT
     );
 
-    leftButton.setPosition(20, 440);
+    leftButton.setPosition(
+        hudLayout.dpadX,
+        hudLayout.dpadY + 80
+    );
+
+    leftButton.setSize(
+        hudLayout.dpadButtonSize,
+        hudLayout.dpadButtonSize
+    );
 
     // ---------------- RIGHT ----------------
     rightButton.setInput(input);
@@ -86,11 +138,152 @@ void GameScene::init()
         &virtualInput
     );
 
+    rightButton.setTouchManager(
+        touchManager
+    );
+
     rightButton.setVirtualButton(
         VirtualButton::RIGHT
     );
 
-    rightButton.setPosition(220, 440);  
+    rightButton.setPosition(
+        hudLayout.dpadX + 160,
+        hudLayout.dpadY + 80
+    );
+
+    rightButton.setSize(
+        hudLayout.dpadButtonSize,
+        hudLayout.dpadButtonSize
+    );
+
+    //
+    // ==================================================
+    // Botão A
+    // ==================================================
+    aButton.setPosition(
+        hudLayout.aButtonX,
+        hudLayout.aButtonY
+    );
+
+    aButton.setSize(
+        hudLayout.actionButtonSize,
+        hudLayout.actionButtonSize
+    );
+
+    aButton.setColor(
+        0,
+        200,
+        0
+    );
+
+    aButton.setVirtualInput(
+        &virtualInput
+    );
+
+    aButton.setTouchManager(
+        touchManager
+    );
+
+    aButton.setVirtualButton(
+        VirtualButton::A
+    );
+
+    //
+    // ==================================================
+    // Botão B
+    // ==================================================
+    bButton.setPosition(
+        hudLayout.bButtonX,
+        hudLayout.bButtonY
+    );
+
+    bButton.setSize(
+        hudLayout.actionButtonSize,
+        hudLayout.actionButtonSize
+    );
+    bButton.setColor(
+        200,
+        0,
+        0
+    );
+
+    bButton.setVirtualInput(
+        &virtualInput
+    );
+
+    bButton.setTouchManager(
+        touchManager
+    );
+
+    bButton.setVirtualButton(
+        VirtualButton::B
+    );
+
+    //
+    // ==================================================
+    // START
+    // ==================================================
+    startButton.setPosition(
+        hudLayout.startX,
+        hudLayout.startY
+    );
+
+    startButton.setSize(
+        hudLayout.systemButtonWidth,
+        hudLayout.systemButtonHeight
+    );
+
+    startButton.setColor(
+        80,
+        80,
+        80
+    );
+
+    startButton.setVirtualInput(
+        &virtualInput
+    );
+
+    startButton.setTouchManager(
+        touchManager
+    );
+
+    startButton.setVirtualButton(
+        VirtualButton::START
+    );
+
+    //
+    // ==================================================
+    // SELECT
+    // ==================================================
+    selectButton.setPosition(
+        hudLayout.selectX,
+        hudLayout.selectY
+    );
+
+    selectButton.setSize(
+        hudLayout.systemButtonWidth,
+        hudLayout.systemButtonHeight
+    );
+
+    selectButton.setColor(
+        80,
+        80,
+        80
+    );
+
+    selectButton.setVirtualInput(
+        &virtualInput
+    );
+
+    selectButton.setTouchManager(
+        touchManager
+    );
+
+    selectButton.setVirtualButton(
+        VirtualButton::SELECT
+    );
+
+
 }
 
 //
@@ -121,6 +314,18 @@ void GameScene::update(float deltaTime)
     leftButton.update(deltaTime);
 
     rightButton.update(deltaTime);
+
+    //
+    // ==================================================
+    // Atualiza action buttons
+    // ==================================================
+    aButton.update(deltaTime);
+
+    bButton.update(deltaTime);
+
+    startButton.update(deltaTime);
+
+    selectButton.update(deltaTime);
 
     //
     // ==================================================
@@ -229,6 +434,18 @@ void GameScene::render()
     leftButton.render(*renderer);
 
     rightButton.render(*renderer);
+
+    //
+    // ==================================================
+    // Renderiza action buttons
+    // ==================================================
+    aButton.render(*renderer);
+
+    bButton.render(*renderer);
+
+    startButton.render(*renderer);
+
+    selectButton.render(*renderer);
 }
 
 //
@@ -264,4 +481,18 @@ void GameScene::setRenderer(Renderer* newRenderer)
 void GameScene::setInput(Input* newInput)
 {
     input = newInput;
+}
+
+//
+// ======================================================
+// GameScene::setTouchManager()
+// ======================================================
+//
+// Define sistema multitouch.
+//
+void GameScene::setTouchManager(
+    TouchManager* newTouchManager
+)
+{
+    touchManager = newTouchManager;
 }

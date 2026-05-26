@@ -9,6 +9,7 @@
 #include "../controllers/player_controller.h"
 #include "../ui/touch_button.h"
 #include "../virtual_input/virtual_input.h"
+#include "../layout/hud_layout.h"
 
 #include <vector>
 
@@ -70,6 +71,13 @@ public:
     //
     void setInput(Input* newInput);
 
+    //
+    // Define TouchManager.
+    //
+    void setTouchManager(
+        TouchManager* newTouchManager
+    );
+
 private:
 
     //
@@ -113,7 +121,36 @@ private:
     TouchButton rightButton;
 
     //
+    // ==================================================
+    // Action buttons
+    // ==================================================
+    //
+    // Botões de ação estilo GBA.
+    //
+    TouchButton aButton;
+
+    TouchButton bButton;
+
+    TouchButton startButton;
+
+    TouchButton selectButton;
+
+    //
     // Sistema de virtual input.
     //
     VirtualInput virtualInput;
+
+    //
+    // Sistema multitouch.
+    //
+    TouchManager* touchManager = nullptr;
+
+    //
+    // ==================================================
+    // HUD layout
+    // ==================================================
+    //
+    // Configuração visual do HUD.
+    //
+    HUDLayout hudLayout;
 };

@@ -72,6 +72,13 @@ bool App::init()
     gameScene.setInput(&input);
 
     //
+    // Define sistema multitouch.
+    //
+    gameScene.setTouchManager(
+        &touchManager
+    );
+
+    //
     // Scene atual.
     //
     currentScene = &gameScene;
@@ -205,6 +212,11 @@ void App::processEvents()
     while (SDL_PollEvent(&event))
     {
         //
+        // ==================================================
+        // Processa touch
+        // ==================================================
+        touchManager.processEvent(event);
+        //
         // Evento de fechamento da janela.
         //
         if (event.type == SDL_EVENT_QUIT)
@@ -212,6 +224,7 @@ void App::processEvents()
             running = false;
         }
     }
+
 }
 
 //
