@@ -96,6 +96,26 @@ public:
         Uint8 newB
     );
 
+    //
+    // ==================================================
+    // Drag update
+    // ==================================================
+    //
+    // Atualiza movimentação
+    // do botão.
+    //
+    void updateDrag();
+
+    //
+    // Retorna posição X.
+    //
+    float getX();
+
+    //
+    // Retorna posição Y.
+    //
+    float getY();
+
 private:
 
     //
@@ -151,5 +171,21 @@ private:
     // Sistema multitouch.
     //
     TouchManager* touchManager = nullptr;
+
+    //
+    // ==================================================
+    // Drag state
+    // ==================================================
+    //
+    // Botão sendo arrastado.
+    //
+    bool dragging = false;
+
+    //
+    // Offset do clique.
+    //
+    float dragOffsetX = 0.0f;
+
+    float dragOffsetY = 0.0f;
 
 };

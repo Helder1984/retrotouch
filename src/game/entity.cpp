@@ -213,6 +213,37 @@ void Entity::move(float dx, float dy)
 {
     x += dx;
     y += dy;
+
+    //
+    // ==================================================
+    // World bounds
+    // ==================================================
+    //
+    // Impede sair do mapa.
+    //
+    if (x < 0)
+    {
+        x = 0;
+    }
+
+    if (y < 0)
+    {
+        y = 0;
+    }
+
+    float mapWidth = 2000;
+
+    float mapHeight = 2000;
+
+    if (x > mapWidth - width)
+    {
+        x = mapWidth - width;
+    }
+
+    if (y > mapHeight - height)
+    {
+        y = mapHeight - height;
+    }
 }
 
 //

@@ -10,53 +10,136 @@
 //
 void PlayerController::update(
     Entity& entity,
+    Input* keyboardInput,
     VirtualInput& virtualInput,
     float deltaTime
 )
 {
     //
-    // Movimento vertical.
-    //
-    if (virtualInput.isPressed(VirtualButton::UP))
+    // ==================================================
+    // UP
+    // ==================================================
+    bool up =
+        virtualInput.getButton(
+            VirtualButton::UP
+        );
+
+    if (keyboardInput)
     {
-        entity.moveUp(deltaTime);
+        up =
+            up ||
+            keyboardInput->up;
     }
 
-    if (virtualInput.isPressed(VirtualButton::DOWN))
+    if (up)
     {
-        entity.moveDown(deltaTime);
-    }
-
-    //
-    // Movimento horizontal.
-    //
-    if (virtualInput.isPressed(VirtualButton::LEFT))
-    {
-        entity.moveLeft(deltaTime);
-    }
-
-    if (virtualInput.isPressed(VirtualButton::RIGHT))
-    {
-        entity.moveRight(deltaTime);
+        entity.move(
+            0,
+            -200 * deltaTime
+        );
     }
 
     //
     // ==================================================
-    // Botão A
+    // DOWN
     // ==================================================
-    if (
-        virtualInput.isPressed(
+    bool down =
+        virtualInput.getButton(
+            VirtualButton::DOWN
+        );
+
+    if (keyboardInput)
+    {
+        down =
+            down ||
+            keyboardInput->down;
+    }
+
+    if (down)
+    {
+        entity.move(
+            0,
+            200 * deltaTime
+        );
+    }
+
+    //
+    // ==================================================
+    // LEFT
+    // ==================================================
+    bool left =
+        virtualInput.getButton(
+            VirtualButton::LEFT
+        );
+
+    if (keyboardInput)
+    {
+        left =
+            left ||
+            keyboardInput->left;
+    }
+
+    if (left)
+    {
+        entity.move(
+            -200 * deltaTime,
+            0
+        );
+    }
+
+    //
+    // ==================================================
+    // RIGHT
+    // ==================================================
+    bool right =
+        virtualInput.getButton(
+            VirtualButton::RIGHT
+        );
+
+    if (keyboardInput)
+    {
+        right =
+            right ||
+            keyboardInput->right;
+    }
+
+    if (right)
+    {
+        entity.move(
+            200 * deltaTime,
+            0
+        );
+    }
+
+    //
+    // ==================================================
+    // Button A
+    // ==================================================
+    //
+    // Muda cor do player.
+    //
+    bool aPressed =
+        virtualInput.getButton(
             VirtualButton::A
-        )
-    )
+        );
+
+    if (aPressed)
     {
-        //
-        // Player fica verde.
-        //
         entity.setColor(
             0,
             255,
             0
+        );
+    }
+    else
+    {
+        //
+        // Cor padrão.
+        //
+        entity.setColor(
+            255,
+            255,
+            255
         );
     }
 }

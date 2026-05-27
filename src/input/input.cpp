@@ -105,4 +105,33 @@ void Input::update()
     //
     mouseLeft =
         mouseState & SDL_BUTTON_LMASK;
-    }
+
+    //
+    // Reset toggle editor.
+    //
+    toggleHudEditor = false;
+
+    //
+    // ==================================================
+    // HUD editor toggle
+    // ==================================================
+    //
+    // Estado atual do F1.
+    //
+    bool currentF1 =
+        keyboard[SDL_SCANCODE_F1];
+
+    //
+    // Detecta:
+    //
+    // tecla acabou de ser apertada
+    //
+    toggleHudEditor =
+        currentF1 &&
+        !previousF1;
+
+    //
+    // Salva estado atual.
+    //
+    previousF1 = currentF1;
+}

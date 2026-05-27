@@ -138,6 +138,8 @@ void TouchButton::update(float deltaTime)
         virtualButton,
         pressed
     );
+
+   
 }
 
 //
@@ -294,4 +296,128 @@ void TouchButton::setSize(
     width = newWidth;
 
     height = newHeight;
+}
+
+//
+// ======================================================
+// TouchButton::updateDrag()
+// ======================================================
+//
+// Permite mover botão
+// usando mouse.
+//
+// Futuramente:
+// - multitouch drag
+// - mobile editor
+// - resize
+// - snapping
+//
+void TouchButton::updateDrag()
+{
+    //
+    // Mouse atual.
+    //
+    float mouseX;
+
+    float mouseY;
+
+    //
+    // Estado mouse.
+    //
+    Uint32 mouseState =
+        SDL_GetMouseState(
+            &mouseX,
+            &mouseY
+        );
+
+    //
+    // Clique esquerdo.
+    //
+    bool mousePressed =
+        mouseState & SDL_BUTTON_LMASK;
+
+    //
+    // Mouse dentro botão.
+    //
+    bool inside =
+        mouseX >= x &&
+        mouseX <= x + width &&
+        mouseY >= y &&
+        mouseY <= y + height;
+
+    //
+    // ==================================================
+    // Inicia drag
+    // ==================================================
+    //
+    if (
+        mousePressed &&
+        inside &&
+        !dragging
+    )
+    {
+        dragging = true;
+
+        //
+        // Salva offset.
+        //
+        dragOffsetX =
+            mouseX - x;
+
+        dragOffsetY =
+            mouseY - y;
+    }
+
+    //
+    // ==================================================
+    // Atualiza drag
+    // ==================================================
+    //
+    if (dragging)
+    {
+        //
+        // Move botão.
+        //
+        x =
+            mouseX -
+            dragOffsetX;
+
+        y =
+            mouseY -
+            dragOffsetY;
+    }
+
+    //
+    // ==================================================
+    // Finaliza drag
+    // ==================================================
+    //
+    if (!mousePressed)
+    {
+        dragging = false;
+    }
+}
+
+//
+// ======================================================
+// TouchButton::getX()
+// ======================================================
+//
+// Retorna posição X.
+//
+float TouchButton::getX()
+{
+    return x;
+}
+
+//
+// ======================================================
+// TouchButton::getY()
+// ======================================================
+//
+// Retorna posição Y.
+//
+float TouchButton::getY()
+{
+    return y;
 }

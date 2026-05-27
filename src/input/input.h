@@ -27,74 +27,98 @@
 //
 class Input
 {
-public:
+    public:
 
-    //
-    // ==================================================
-    // Estados das teclas
-    // ==================================================
-    //
-    // true  = pressionada
-    // false = solta
-    //
+        //
+        // ==================================================
+        // Estados das teclas
+        // ==================================================
+        //
+        // true  = pressionada
+        // false = solta
+        //
 
-    //
-    // Movimento para cima.
-    // Tecla W.
-    //
-    bool up;
+        //
+        // Movimento para cima.
+        // Tecla W.
+        //
+        bool up;
 
-    //
-    // Movimento para baixo.
-    // Tecla S.
-    //
-    bool down;
+        //
+        // Movimento para baixo.
+        // Tecla S.
+        //
+        bool down;
 
-    //
-    // Movimento para esquerda.
-    // Tecla A.
-    //
-    bool left;
+        //
+        // Movimento para esquerda.
+        // Tecla A.
+        //
+        bool left;
 
-    //
-    // Movimento para direita.
-    // Tecla D.
-    //
-    bool right;
+        //
+        // Movimento para direita.
+        // Tecla D.
+        //
+        bool right;
 
-    //
-    // ==================================================
-    // Mouse input
-    // ==================================================
-    //
-    // Estado do clique esquerdo.
-    //
-    bool mouseLeft;
+        //
+        // ==================================================
+        // Mouse input
+        // ==================================================
+        //
+        // Estado do clique esquerdo.
+        //
+        bool mouseLeft;
 
-    //
-    // Posição do mouse.
-    //
-    float mouseX;
+        //
+        // Posição do mouse.
+        //
+        float mouseX;
 
-    float mouseY;
+        float mouseY;
 
-    //
-    // ==================================================
-    // Construtor
-    // ==================================================
-    //
-    // Inicializa estados do input.
-    //
-    Input();
+        //
+        // ==================================================
+        // Construtor
+        // ==================================================
+        //
+        // Inicializa estados do input.
+        //
+        Input();
 
-    //
-    // ==================================================
-    // update()
-    // ==================================================
-    //
-    // Atualiza estado atual do teclado.
-    //
-    // Deve ser chamado a cada frame.
-    //
-    void update();
+        //
+        // ==================================================
+        // update()
+        // ==================================================
+        //
+        // Atualiza estado atual do teclado.
+        //
+        // Deve ser chamado a cada frame.
+        //
+        void update();
+
+        //
+        // ==================================================
+        // System input
+        // ==================================================
+        //
+        // Alterna HUD editor.
+        //
+        bool toggleHudEditor = false;
+
+    private:
+
+        //
+        // ==================================================
+        // Previous keyboard state
+        // ==================================================
+        //
+        // Estado anterior do F1.
+        //
+        // Usado para detectar:
+        //
+        // tecla acabou de ser pressionada
+        //
+        bool previousF1 = false;
 };

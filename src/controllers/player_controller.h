@@ -64,5 +64,10 @@ public:
     // deltaTime
     // → tempo entre frames
     //
-    void update(Entity& player, VirtualInput& virtualInput, float deltaTime);
+   void update(
+        Entity& entity,
+        Input* keyboardInput,
+        VirtualInput& virtualInput,
+        float deltaTime
+    );
 };

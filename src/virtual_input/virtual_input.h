@@ -78,6 +78,17 @@ public:
     //
     bool isPressed(VirtualButton button);
 
+    //
+    // ==================================================
+    // Get button state
+    // ==================================================
+    //
+    // Retorna estado do botão.
+    //
+    bool getButton(
+        VirtualButton button
+    );
+
 private:
 
     //

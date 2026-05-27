@@ -132,3 +132,45 @@ bool VirtualInput::isPressed(
 
     return false;
 }
+
+//
+// ======================================================
+// VirtualInput::getButton()
+// ======================================================
+//
+// Retorna estado atual
+// do botão.
+//
+bool VirtualInput::getButton(
+    VirtualButton button
+)
+{
+    switch (button)
+    {
+        case VirtualButton::UP:
+            return up;
+
+        case VirtualButton::DOWN:
+            return down;
+
+        case VirtualButton::LEFT:
+            return left;
+
+        case VirtualButton::RIGHT:
+            return right;
+
+        case VirtualButton::A:
+            return a;
+
+        case VirtualButton::B:
+            return b;
+
+        case VirtualButton::START:
+            return start;
+
+        case VirtualButton::SELECT:
+            return select;
+    }
+
+    return false;
+}

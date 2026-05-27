@@ -153,4 +153,13 @@ private:
     // Configuração visual do HUD.
     //
     HUDLayout hudLayout;
+
+    //
+    // ==================================================
+    // HUD editor mode
+    // ==================================================
+    //
+    // Permite mover botões.
+    //
+    bool hudEditMode = false;
 };

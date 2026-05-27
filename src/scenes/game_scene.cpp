@@ -293,19 +293,17 @@ void GameScene::init()
 //
 // Atualiza:
 //
-// - input virtual
+// - gameplay
+// - HUD
+// - touch
 // - player
-// - câmera
-// - UI
 //
 void GameScene::update(float deltaTime)
 {
     //
     // ==================================================
-    // Atualiza D-Pad virtual
+    // Atualiza D-Pad
     // ==================================================
-    //
-    // Touch buttons atualizam VirtualInput.
     //
     upButton.update(deltaTime);
 
@@ -319,6 +317,7 @@ void GameScene::update(float deltaTime)
     // ==================================================
     // Atualiza action buttons
     // ==================================================
+    //
     aButton.update(deltaTime);
 
     bButton.update(deltaTime);
@@ -329,76 +328,199 @@ void GameScene::update(float deltaTime)
 
     //
     // ==================================================
-    // Combina teclado + touch
+    // HUD editor
     // ==================================================
     //
-    // Keyboard também alimenta VirtualInput.
-    //
-    if (input->up)
+    if (hudEditMode)
     {
-        virtualInput.setButton(
-            VirtualButton::UP,
-            true
-        );
-    }
+        upButton.updateDrag();
 
-    if (input->down)
-    {
-        virtualInput.setButton(
-            VirtualButton::DOWN,
-            true
-        );
-    }
+        downButton.updateDrag();
 
-    if (input->left)
-    {
-        virtualInput.setButton(
-            VirtualButton::LEFT,
-            true
-        );
-    }
+        leftButton.updateDrag();
 
-    if (input->right)
-    {
-        virtualInput.setButton(
-            VirtualButton::RIGHT,
-            true
-        );
+        rightButton.updateDrag();
+
+        aButton.updateDrag();
+
+        bButton.updateDrag();
+
+        startButton.updateDrag();
+
+        selectButton.updateDrag();
     }
 
     //
     // ==================================================
-    // Atualiza player
+    // Atualiza HUD layout
     // ==================================================
     //
-    playerController.update(
-        entities[0],
-        virtualInput,
-        deltaTime
+    hudLayout.aButtonX =
+        aButton.getX();
+
+    hudLayout.aButtonY =
+        aButton.getY();
+
+    hudLayout.bButtonX =
+        bButton.getX();
+
+    hudLayout.bButtonY =
+        bButton.getY();
+
+    //
+    // Salva layout.
+    //
+    hudLayout.save(
+        "layout.cfg"
     );
 
+    
     //
     // ==================================================
-    // Atualiza entidades
+    // Gameplay
     // ==================================================
     //
-    // Atualiza bounds e lógica.
+    // Gameplay apenas quando
+    // editor está desligado.
     //
-    for (auto& entity : entities)
+    if (!hudEditMode)
     {
-        entity.update(deltaTime);
+        //
+        // Segurança.
+        //
+        if (!entities.empty())
+        {
+            playerController.update(
+                entities[0],
+                input,
+                virtualInput,
+                deltaTime
+            );
+
+            //
+            // ==================================================
+            // Camera follow
+            // ==================================================
+            //
+            // Faz câmera seguir player.
+            //
+            camera.follow(
+                entities[0].getX(),
+                entities[0].getY()
+            );
+
+            //
+            // ==================================================
+            // World bounds
+            // ==================================================
+            //
+            // Impede câmera de sair
+            // do mapa.
+            //
+
+            //
+            // Limite esquerdo.
+            //
+            if (camera.getX() < 0)
+            {
+                camera.setX(0);
+            }
+
+            //
+            // Limite superior.
+            //
+            if (camera.getY() < 0)
+            {
+                camera.setY(0);
+            }
+
+            //
+            // ==================================================
+            // Tamanho do mapa
+            // ==================================================
+            //
+            float mapWidth = 2000;
+
+            float mapHeight = 2000;
+
+            //
+            // ==================================================
+            // Tamanho da tela
+            // ==================================================
+            //
+            float screenWidth = 800;
+
+            float screenHeight = 600;
+
+            //
+            // ==================================================
+            // Limite direito
+            // ==================================================
+            //
+            if (
+                camera.getX() >
+                mapWidth - screenWidth
+            )
+            {
+                camera.setX(
+                    mapWidth - screenWidth
+                );
+            }
+
+            //
+            // ==================================================
+            // Limite inferior
+            // ==================================================
+            //
+            if (
+                camera.getY() >
+                mapHeight - screenHeight
+            )
+            {
+                camera.setY(
+                    mapHeight - screenHeight
+                );
+            }
+        }
     }
 
     //
     // ==================================================
-    // Atualiza câmera
+    // Atualiza HUD layout
     // ==================================================
+    hudLayout.aButtonX =
+        aButton.getX();
+
+    hudLayout.aButtonY =
+        aButton.getY();
+
+    hudLayout.bButtonX =
+        bButton.getX();
+
+    hudLayout.bButtonY =
+        bButton.getY();
+
     //
-    camera.follow(
-        entities[0].getX(),
-        entities[0].getY()
+    // ==================================================
+    // Toggle HUD editor
+    // ==================================================
+    if (
+        input &&
+        input->toggleHudEditor
+    )
+    {
+        hudEditMode =
+            !hudEditMode;
+    }
+
+    //
+    // Salva layout.
+    //
+    hudLayout.save(
+        "layout.cfg"
     );
 }
+
 
 //
 // ======================================================
@@ -446,6 +568,26 @@ void GameScene::render()
     startButton.render(*renderer);
 
     selectButton.render(*renderer);
+
+    //
+    // ==================================================
+    // HUD editor visual
+    // ==================================================
+    if (hudEditMode)
+    {
+        //
+        // Barra superior.
+        //
+        renderer->drawScreenRect(
+            0,
+            0,
+            800,
+            40,
+            120,
+            40,
+            40
+        );
+    }
 }
 
 //
