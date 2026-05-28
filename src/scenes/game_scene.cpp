@@ -521,7 +521,6 @@ void GameScene::update(float deltaTime)
     );
 }
 
-
 //
 // ======================================================
 // GameScene::render()
@@ -531,6 +530,15 @@ void GameScene::update(float deltaTime)
 //
 void GameScene::render()
 {
+    //
+    // ==================================================
+    // Renderiza tilemap
+    // ==================================================
+    tileMap.render(
+        *renderer,
+        camera
+    );
+    
     //
     // Renderiza entidades.
     //

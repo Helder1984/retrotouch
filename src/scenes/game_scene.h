@@ -10,6 +10,7 @@
 #include "../ui/touch_button.h"
 #include "../virtual_input/virtual_input.h"
 #include "../layout/hud_layout.h"
+#include "../world/tilemap.h"
 
 #include <vector>
 
@@ -162,4 +163,13 @@ private:
     // Permite mover botões.
     //
     bool hudEditMode = false;
+
+    //
+    // ==================================================
+    // Tile map
+    // ==================================================
+    //
+    // Mapa principal.
+    //
+    TileMap tileMap;
 };
