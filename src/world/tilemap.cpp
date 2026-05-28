@@ -22,14 +22,60 @@ void TileMap::render(
 )
 {
     //
-    // Percorre linhas.
+    // ==================================================
+    // Visible tile range
+    // ==================================================
     //
-    for (int y = 0; y < mapHeight; y++)
+    // Calcula quais tiles
+    // estão visíveis.
+    //
+    int startX =
+        camera.getX() / tileSize;
+
+    int startY =
+        camera.getY() / tileSize;
+
+    //
+    // +2 evita falhas
+    // nas bordas.
+    //
+    int endX =
+        startX + 15;
+
+    int endY =
+        startY + 12;
+
+    //
+    // Segurança.
+    //
+    if (startX < 0)
     {
-        //
-        // Percorre colunas.
-        //
-        for (int x = 0; x < mapWidth; x++)
+        startX = 0;
+    }
+
+    if (startY < 0)
+    {
+        startY = 0;
+    }
+
+    if (endX > mapWidth)
+    {
+        endX = mapWidth;
+    }
+
+    if (endY > mapHeight)
+    {
+        endY = mapHeight;
+    }
+
+    //
+    // ==================================================
+    // Renderiza apenas tiles visíveis
+    // ==================================================
+    //
+    for (int y = startY; y < endY; y++)
+    {
+        for (int x = startX; x < endX; x++)
         {
             //
             // Posição world.
@@ -41,12 +87,12 @@ void TileMap::render(
                 y * tileSize;
 
             //
-            // Cor do tile.
+            // Cor base.
             //
             Uint8 color = 50;
 
             //
-            // Alterna tom.
+            // Alterna padrão.
             //
             if ((x + y) % 2 == 0)
             {
@@ -67,7 +113,7 @@ void TileMap::render(
                 camera
             );
         }
-    }
+    }   
 }
 
 //
