@@ -12,9 +12,16 @@ void PlayerController::update(
     Entity& entity,
     Input* keyboardInput,
     VirtualInput& virtualInput,
+    TileMap& tileMap,
     float deltaTime
 )
 {
+    //
+    // Velocidade do player.
+    //
+    float moveSpeed =
+        200 * deltaTime;
+
     //
     // ==================================================
     // UP
@@ -33,10 +40,29 @@ void PlayerController::update(
 
     if (up)
     {
-        entity.move(
-            0,
-            -200 * deltaTime
-        );
+        float nextX =
+            entity.getX();
+
+        float nextY =
+            entity.getY() - moveSpeed;
+
+        //
+        // Move apenas se não houver colisão.
+        //
+        if (
+            !tileMap.isColliding(
+                nextX,
+                nextY,
+                entity.getWidth(),
+                entity.getHeight()
+            )
+        )
+        {
+            entity.move(
+                0,
+                -moveSpeed
+            );
+        }
     }
 
     //
@@ -57,10 +83,26 @@ void PlayerController::update(
 
     if (down)
     {
-        entity.move(
-            0,
-            200 * deltaTime
-        );
+        float nextX =
+            entity.getX();
+
+        float nextY =
+            entity.getY() + moveSpeed;
+
+        if (
+            !tileMap.isColliding(
+                nextX,
+                nextY,
+                entity.getWidth(),
+                entity.getHeight()
+            )
+        )
+        {
+            entity.move(
+                0,
+                moveSpeed
+            );
+        }
     }
 
     //
@@ -81,10 +123,26 @@ void PlayerController::update(
 
     if (left)
     {
-        entity.move(
-            -200 * deltaTime,
-            0
-        );
+        float nextX =
+            entity.getX() - moveSpeed;
+
+        float nextY =
+            entity.getY();
+
+        if (
+            !tileMap.isColliding(
+                nextX,
+                nextY,
+                entity.getWidth(),
+                entity.getHeight()
+            )
+        )
+        {
+            entity.move(
+                -moveSpeed,
+                0
+            );
+        }
     }
 
     //
@@ -105,10 +163,26 @@ void PlayerController::update(
 
     if (right)
     {
-        entity.move(
-            200 * deltaTime,
-            0
-        );
+        float nextX =
+            entity.getX() + moveSpeed;
+
+        float nextY =
+            entity.getY();
+
+        if (
+            !tileMap.isColliding(
+                nextX,
+                nextY,
+                entity.getWidth(),
+                entity.getHeight()
+            )
+        )
+        {
+            entity.move(
+                moveSpeed,
+                0
+            );
+        }
     }
 
     //

@@ -14,6 +14,7 @@
 #include "../input/input.h"
 #include "../game/entity.h"
 #include "../virtual_input/virtual_input.h"
+#include "../world/tilemap.h"
 
 //
 // ======================================================
@@ -44,30 +45,14 @@
 //
 class PlayerController
 {
-public:
+    public:
+    
+        void update(
+            Entity& entity,
+            Input* keyboardInput,
+            VirtualInput& virtualInput,
+            TileMap& tileMap,
+            float deltaTime
+        );
 
-    //
-    // ==================================================
-    // update()
-    // ==================================================
-    //
-    // Atualiza controle do jogador.
-    //
-    // Parâmetros:
-    //
-    // player
-    // → entidade controlada
-    //
-    // virtualInput
-    // Atualiza player.
-    //
-    // deltaTime
-    // → tempo entre frames
-    //
-   void update(
-        Entity& entity,
-        Input* keyboardInput,
-        VirtualInput& virtualInput,
-        float deltaTime
-    );
 };

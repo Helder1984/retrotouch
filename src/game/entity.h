@@ -264,6 +264,24 @@ public:
     // Move entidade para direita.
     //
     void moveRight(float deltaTime);
+
+    //
+    // ==================================================
+    // getWidth()
+    // ==================================================
+    //
+    // Retorna largura.
+    //
+    float getWidth();
+
+    //
+    // ==================================================
+    // getHeight()
+    // ==================================================
+    //
+    // Retorna altura.
+    //
+    float getHeight();
     
 private:
 

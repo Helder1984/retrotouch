@@ -92,6 +92,18 @@ void TileMap::render(
             Uint8 color = 50;
 
             //
+            // Tiles sólidos.
+            //
+            if (isSolidTile(x, y))
+            {
+                color = 120;
+            }
+            else if ((x + y) % 2 == 0)
+            {
+                color = 70;
+            }
+
+            //
             // Alterna padrão.
             //
             if ((x + y) % 2 == 0)
@@ -134,4 +146,95 @@ float TileMap::getWidth()
 float TileMap::getHeight()
 {
     return mapHeight * tileSize;
+}
+
+//
+// ======================================================
+// TileMap::isSolidTile()
+// ======================================================
+//
+// Define tiles sólidos.
+//
+bool TileMap::isSolidTile(
+    int tileX,
+    int tileY
+)
+{
+    //
+    // Bordas do mapa são sólidas.
+    //
+    if (
+        tileX == 0 ||
+        tileY == 0 ||
+        tileX == mapWidth - 1 ||
+        tileY == mapHeight - 1
+    )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+//
+// ======================================================
+// TileMap::isColliding()
+// ======================================================
+//
+// Verifica colisão no mapa.
+//
+bool TileMap::isColliding(
+    float x,
+    float y,
+    float width,
+    float height
+)
+{
+    //
+    // Converte world -> tile.
+    //
+    int leftTile =
+        x / tileSize;
+
+    int rightTile =
+        (x + width) / tileSize;
+
+    int topTile =
+        y / tileSize;
+
+    int bottomTile =
+        (y + height) / tileSize;
+
+    //
+    // Verifica cantos.
+    //
+    if (
+        isSolidTile(leftTile, topTile)
+    )
+    {
+        return true;
+    }
+
+    if (
+        isSolidTile(rightTile, topTile)
+    )
+    {
+        return true;
+    }
+
+    if (
+        isSolidTile(leftTile, bottomTile)
+    )
+    {
+        return true;
+    }
+
+    if (
+        isSolidTile(rightTile, bottomTile)
+    )
+    {
+        return true;
+    }
+
+    return false;
 }

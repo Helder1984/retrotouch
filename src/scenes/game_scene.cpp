@@ -394,6 +394,7 @@ void GameScene::update(float deltaTime)
                 entities[0],
                 input,
                 virtualInput,
+                tileMap,
                 deltaTime
             );
 
@@ -538,7 +539,7 @@ void GameScene::render()
         *renderer,
         camera
     );
-    
+
     //
     // Renderiza entidades.
     //
@@ -645,4 +646,14 @@ void GameScene::setTouchManager(
 )
 {
     touchManager = newTouchManager;
+}
+
+//
+// ======================================================
+// GameScene::getTileMap()
+// ======================================================
+//
+TileMap& GameScene::getTileMap()
+{
+    return tileMap;
 }

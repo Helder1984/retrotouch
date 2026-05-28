@@ -354,3 +354,23 @@ void Entity::moveRight(float deltaTime)
     x += speed * deltaTime;
 }
 
+//
+// ======================================================
+// Entity::getWidth()
+// ======================================================
+//
+float Entity::getWidth()
+{
+    return width;
+}
+
+//
+// ======================================================
+// Entity::getHeight()
+// ======================================================
+//
+float Entity::getHeight()
+{
+    return height;
+}
+

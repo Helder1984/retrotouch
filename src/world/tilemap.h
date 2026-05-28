@@ -49,6 +49,32 @@ public:
     //
     float getHeight();
 
+    //
+    // ==================================================
+    // isSolidTile()
+    // ==================================================
+    //
+    // Verifica se tile é sólido.
+    //
+    bool isSolidTile(
+        int tileX,
+        int tileY
+    );
+
+    //
+    // ==================================================
+    // isColliding()
+    // ==================================================
+    //
+    // Verifica colisão world.
+    //
+    bool isColliding(
+        float x,
+        float y,
+        float width,
+        float height
+    );
+
 private:
 
     //

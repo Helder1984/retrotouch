@@ -79,6 +79,15 @@ public:
         TouchManager* newTouchManager
     );
 
+    //
+    // ==================================================
+    // getTileMap()
+    // ==================================================
+    //
+    // Retorna tilemap.
+    //
+    TileMap& getTileMap();
+
 private:
 
     //
